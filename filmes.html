@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Cine Hollywood</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+      <header>
+        <h1>Cine Hollywood</h1>
+        <h2>Filmes em cartaz</h2>
+      </header>
+
+      <section>
+
+      </section>
+
+    <script>  
+    const section = document.querySelector('section');
+
+    //Faz a requisição dos dados
+    let requestURL = 'https://raw.githubusercontent.com/pauloewerton/testes-json/main/filmes.json';
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function() {
+      showFilmes(request.response);
+    }
+
+
+    //Carrega as informações dos filmes na pagina
+    function showFilmes(obj) {
+      //Coloca o objeto numa constante
+      const filmes = obj['filmes'];
+
+      //Percorre a lista de filmes
+      for(let i = 0; i < filmes.length; i++) {
+        //Cria os elementos
+        const myArticle = document.createElement('article');
+
+        const myImg = document.createElement('img');
+        const myH3 = document.createElement('h3');
+        const b1 = document.createElement('b');
+        const myPara1 = document.createElement('p');
+        const b2 = document.createElement('b');
+        const myPara2 = document.createElement('p');
+
+
+        //Atribui os valores
+        myImg.src = filmes[i].imagem;
+        myH3.textContent = filmes[i].titulo;
+        b1.textContent = 'Descrição';
+        myPara1.textContent = filmes[i].descricao;
+        b2.textContent = 'Data de Lançamento'
+        myPara2.textContent = filmes[i].data_lancamento;
+
+        
+        //Relaciona os elementos
+        myArticle.appendChild(myImg);
+        myArticle.appendChild(myH3);
+        myArticle.appendChild(b1);
+        myArticle.appendChild(myPara1);
+        myArticle.appendChild(b2);
+        myArticle.appendChild(myPara2);
+
+
+        section.appendChild(myArticle);
+      }
+    }
+
+    </script>
+  </body>
+</html>
